@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "pdf-viewer",
+  "version": "1.0",
+  "description": "A simple pdf displayer extension for Firefox",
+
+  "browser_action": {
+    "default_title": "Open PDF"
+  },
+
+  "permissions": ["activeTab", "webRequest", "webRequestBlocking", "*://*/*"],
+
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
