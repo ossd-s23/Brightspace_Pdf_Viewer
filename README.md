@@ -7,7 +7,7 @@ Team Members:
 - [Seoeun Hong](https://github.com/seoeunHong)
 - [Amando Xu](https://github.com/PrettyAX)
 
-# Overview
+## Overview
 
 The Brightspace PDF Viewer is a browser extension designed for use with the
 Firefox browser and Brightspace. This extension is aimed at making the viewing
@@ -22,7 +22,7 @@ Brightspace PDF Viewer, you can view PDFs with just one click of the extension
 button. Say goodbye to frustration and hello to an effortless PDF viewing
 experience.
 
-# How to install?
+## Installation
 
 1. Download the files from this repository
 2. Make sure that the files are in the format below
@@ -38,3 +38,11 @@ Brightspace_Pdf_Viewer/
 3. Load up about:debugging#/runtime/this-firefox
 4. Click on Load Temporary Add-on
 5. Select manifest.json from the Brightspace_Pdf_Viewer that you've downloaded
+
+## Contribution
+
+See the [Contribution Page](https://github.com/ossd-s23/Brightspace_Pdf_Viewer/blob/main/CONTRIBUTING.md). Also see the [Code of Conduct document](https://github.com/ossd-s23/Brightspace_Pdf_Viewer/blob/main/CODE_OF_CONDUCT.md).
+
+## License
+
+See the [License Page](https://github.com/ossd-s23/Brightspace_Pdf_Viewer/blob/main/LICENSE).
