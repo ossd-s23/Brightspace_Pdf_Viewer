@@ -1,39 +1,37 @@
 "use strict";
 
-/*
-This is the page for which we want to listen
-*/
-let targetPage = "*://*/*";
-
-var pdfLinks = [];
+var pdfLink = null;
 
 /*
-Rewrite the User-Agent header to "ua".
-*/
+ * Handler function for the webRequest.onBeforeSendHeaders event
+ * Filters out requests that are not PDFs, and extracts the PDF link
+ * from the request headers
+ */
 function extractPDFLink(e) {
-  if (e.url.includes(".pdf?")) {
-    pdfLinks.push(e.url);
+  if (e.url.includes(".pdf")) {
+    pdfLink = e.url;
   }
   return {};
 }
 
 /*
-Add rewriteUserAgentHeader as a listener to onBeforeSendHeaders,
-only for the target page.
-*/
-browser.webRequest.onBeforeSendHeaders.addListener(
-  extractPDFLink,
-  { urls: [targetPage] },
-  ["blocking", "requestHeaders"]
-);
-
-browser.browserAction.onClicked.addListener(() => {
-  if (pdfLinks.length == 0) {
+ * Display the PDF embedded in the page
+ */
+function displayPDF() {
+  if (!pdfLink) {
     return;
   }
 
   browser.tabs.create({
-    url: pdfLinks[pdfLinks.length - 1],
+    url: pdfLink,
     active: true,
   });
-});
+}
+
+browser.webRequest.onBeforeSendHeaders.addListener(
+  extractPDFLink,
+  { urls: ["*://*/*"] },
+  ["blocking", "requestHeaders"]
+);
+
+browser.browserAction.onClicked.addListener(displayPDF);
