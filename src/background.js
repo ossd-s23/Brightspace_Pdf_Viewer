@@ -1,42 +1,71 @@
 "use strict";
 
-/*
-This is the page for which we want to listen
-*/
-let targetPage = "*://*/*";
+/**
+ * pdfLinks
+ *
+ * A map that stores the last requested PDF link for each tab. The keys in the
+ * map are tab IDs, and the values are the corresponding PDF links.
+ *
+ * @type {Map<number, string>}
+ */
+var pdfLinks = new Map();
 
-var pdfLinks = [];
-
-/*
-Rewrite the User-Agent header to "ua".
-*/
-function extractPDFLink(e) {
-  if (e.url.includes(".pdf?")) {
-    pdfLinks.push(e.url);
+/**
+ * extractPDFLink(request)
+ *
+ * This function is a handler for the webRequest.onBeforeSendHeaders event. It
+ * filters out requests that are not PDFs, and extracts the PDF link from the
+ * request headers. The PDF link and the tab ID associated with the request are
+ * stored in a map for later use.
+ *
+ * @param {Object} request - The request headers object
+ * @return {Object} - An empty object
+ */
+function extractPDFLink(request) {
+  if (request.url.includes(".pdf")) {
+    pdfLinks.set(request.tabId, request.url);
   }
   return {};
 }
 
-/*
-Add rewriteUserAgentHeader as a listener to onBeforeSendHeaders,
-only for the target page.
+/**
+ * displayPDF()
+ *
+ * This function retrieves the last requested PDF link associated with the
+ * currently active tab and opens it in a new tab. If there is no PDF link
+ * associated with the active tab, the function does nothing.
+ *
+ * @return {void}
+ */
+function displayPDF() {
+  browser.tabs
+    .query({ active: true, currentWindow: true })
+    .then((tabs) => {
+      var pdfLink = pdfLinks.get(tabs[0].id);
+      if (!pdfLink) {
+        return;
+      }
+      browser.tabs.create({
+        url: pdfLink,
+        active: true,
+      });
+    })
+    .catch((error) => {
+      console.log(`Error: ${error}`);
+    });
+}
 
-Make it "blocking" so we can modify the headers.
-*/
+// Listen for requests to PDFs
 browser.webRequest.onBeforeSendHeaders.addListener(
   extractPDFLink,
-  { urls: [targetPage] },
-  ["blocking", "requestHeaders"]
+  { urls: ["*://*/*"] },
+  ["requestHeaders"]
 );
 
-browser.browserAction.onClicked.addListener(() => {
-  if (pdfLinks.length == 0) {
-    alert("No PDF links found on this page");
-    return;
-  }
+// Fire displayPDF() when the browser action is clicked
+browser.browserAction.onClicked.addListener(displayPDF);
 
-  browser.tabs.create({
-    url: pdfLinks[pdfLinks.length - 1],
-    active: true,
-  });
+// Remove PDF links from the map when tabs are closed
+browser.tabs.onRemoved.addListener((tabId) => {
+  pdfLinks.delete(tabId);
 });
