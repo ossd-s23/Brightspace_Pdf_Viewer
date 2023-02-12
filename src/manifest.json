@@ -7,7 +7,9 @@
   "browser_action": {
     "default_title": "Open PDF"
   },
-
+  "icons": {
+    "48": "icons/border-48.png"
+  },
   "permissions": ["activeTab", "webRequest", "webRequestBlocking", "*://*/*"],
 
   "background": {
