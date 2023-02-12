@@ -1,7 +1,6 @@
 # Brightspace_Pdf_Viewer
 Team 6 Add-on Activity
 Team Members:
-[title](https://www.example.com)
 - [Jinli Xiao](https://github.com/jinlixiao)
 - [Seoeun Hong](https://github.com/seoeunHong)
 - [Amando Xu](https://github.com/PrettyAX)
