@@ -59,7 +59,7 @@ function displayPDF() {
 browser.webRequest.onBeforeSendHeaders.addListener(
   extractPDFLink,
   { urls: ["*://*/*"] },
-  ["blocking", "requestHeaders"]
+  ["requestHeaders"]
 );
 
 // Fire displayPDF() when the browser action is clicked
