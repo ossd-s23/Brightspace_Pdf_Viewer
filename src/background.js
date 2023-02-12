@@ -1,6 +1,6 @@
 "use strict";
 
-var pdfLink = null;
+var pdfLinks = new Map();
 
 /*
  * Handler function for the webRequest.onBeforeSendHeaders event
@@ -9,7 +9,7 @@ var pdfLink = null;
  */
 function extractPDFLink(e) {
   if (e.url.includes(".pdf")) {
-    pdfLink = e.url;
+    pdfLinks.set(e.tabId, e.url);
   }
   return {};
 }
@@ -18,14 +18,21 @@ function extractPDFLink(e) {
  * Display the PDF embedded in the page
  */
 function displayPDF() {
-  if (!pdfLink) {
-    return;
-  }
-
-  browser.tabs.create({
-    url: pdfLink,
-    active: true,
-  });
+  browser.tabs
+    .query({ active: true, currentWindow: true })
+    .then((tabs) => {
+      var pdfLink = pdfLinks.get(tabs[0].id);
+      if (!pdfLink) {
+        return;
+      }
+      browser.tabs.create({
+        url: pdfLink,
+        active: true,
+      });
+    })
+    .catch((error) => {
+      console.log(`Error: ${error}`);
+    });
 }
 
 browser.webRequest.onBeforeSendHeaders.addListener(
