@@ -11,7 +11,7 @@
 var pdfLinks = new Map();
 
 /**
- * extractPDFLink(e)
+ * extractPDFLink(request)
  *
  * This function is a handler for the webRequest.onBeforeSendHeaders event. It
  * filters out requests that are not PDFs, and extracts the PDF link from the
