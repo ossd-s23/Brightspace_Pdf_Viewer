@@ -20,8 +20,6 @@ function extractPDFLink(e) {
 /*
 Add rewriteUserAgentHeader as a listener to onBeforeSendHeaders,
 only for the target page.
-
-Make it "blocking" so we can modify the headers.
 */
 browser.webRequest.onBeforeSendHeaders.addListener(
   extractPDFLink,
@@ -31,7 +29,6 @@ browser.webRequest.onBeforeSendHeaders.addListener(
 
 browser.browserAction.onClicked.addListener(() => {
   if (pdfLinks.length == 0) {
-    alert("No PDF links found on this page");
     return;
   }
 
