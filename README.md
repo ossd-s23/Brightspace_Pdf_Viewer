@@ -24,20 +24,37 @@ experience.
 
 ## Installation
 
-1. Download the files from this repository
-2. Make sure that the files are in the format below
+### On Firefox
+
+1. Download the files from this repository.
+2. Make sure that the files are in the structure below:
 
 ```
-Brightspace_Pdf_Viewer/
+src_firefox/
     icons/
         border-48.png
     background.js
     manifest.json
 ```
 
-3. Load up about:debugging#/runtime/this-firefox
-4. Click on Load Temporary Add-on
-5. Select manifest.json from the Brightspace_Pdf_Viewer that you've downloaded
+3. Open Firefox and go to the Extension page: Enter
+   "about:debugging#/runtime/this-firefox" in the address bar and enter.
+4. Click on Load Temporary Add-on.
+5. Select manifest.json from `src_firefox` that you've downloaded.
+6. The extension should now appear in the extension bar. You can also pin it.
+
+### On Chrome
+
+1. Download the files from this repository
+2. Open Google Chrome and go to the Extensions page: Enter "chrome://extensions"
+   in the address bar and press Enter.
+3. Enable Developer mode: In the upper-right corner of the Extensions page,
+   click on the toggle switch for Developer mode.
+4. Load unpacked extension: Click on the "Load unpacked" button and select the
+   `src_chrome` folder.
+5. The extension should now appear in the list of installed extensions on the
+   Extensions page. You can use the toggle switch to enable or disable the
+   extension.
 
 ## Contribution
 
