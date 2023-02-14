@@ -8,7 +8,7 @@
     "default_title": "Open PDF"
   },
   "icons": {
-    "48": "icons/border-48.png"
+    "48": "icons/view-list-48.png"
   },
   "permissions": ["activeTab", "webRequest", "webRequestBlocking", "*://*/*"],
 
